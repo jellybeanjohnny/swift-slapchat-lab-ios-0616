@@ -3,18 +3,20 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Table View Controller-->
         <scene sceneID="z6K-tG-zJe">
             <objects>
-                <tableViewController id="XAu-n2-nEF" sceneMemberID="viewController">
+                <tableViewController id="XAu-n2-nEF" customClass="TableViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="BOg-Rj-h6G">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="74a-eq-zcV" style="IBUITableViewCellStyleDefault" id="9im-4Z-3su">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="74a-eq-zcV" style="IBUITableViewCellStyleDefault" id="9im-4Z-3su">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9im-4Z-3su" id="Jlf-uV-ayF">
@@ -38,12 +40,68 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="hPh-B6-6eu">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="SYd-iy-GQY"/>
+                        <rightBarButtonItems>
+                            <barButtonItem style="done" systemItem="add" id="SYd-iy-GQY">
+                                <connections>
+                                    <segue destination="Md5-X1-aZL" kind="presentation" id="J7r-U7-YZR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Sort" id="Ey8-oh-5Sj">
+                                <connections>
+                                    <action selector="sortData:" destination="XAu-n2-nEF" id="FA9-UG-BYC"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ejz-2p-aJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="339"/>
+        </scene>
+        <!--Add Message View Controller-->
+        <scene sceneID="ECY-VK-toj">
+            <objects>
+                <viewController id="Md5-X1-aZL" customClass="AddMessageViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pBW-oB-1k3"/>
+                        <viewControllerLayoutGuide type="bottom" id="fXq-ZH-fVR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LNd-VB-gbd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iPO-Ta-tuY">
+                                <rect key="frame" x="20" y="28" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RT2-nq-dIy">
+                                <rect key="frame" x="20" y="448" width="560" height="132"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <state key="normal" title="SAVE"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="Md5-X1-aZL" eventType="touchUpInside" id="O7y-vV-lU6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="iPO-Ta-tuY" secondAttribute="leading" id="Iiu-Me-rdi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iPO-Ta-tuY" secondAttribute="trailing" id="YRY-Td-rTc"/>
+                            <constraint firstItem="RT2-nq-dIy" firstAttribute="leading" secondItem="LNd-VB-gbd" secondAttribute="leadingMargin" id="ayS-Zl-Dtr"/>
+                            <constraint firstItem="iPO-Ta-tuY" firstAttribute="top" secondItem="pBW-oB-1k3" secondAttribute="bottom" constant="8" symbolic="YES" id="bXr-93-AGs"/>
+                            <constraint firstItem="RT2-nq-dIy" firstAttribute="trailing" secondItem="LNd-VB-gbd" secondAttribute="trailingMargin" id="fMQ-49-zjf"/>
+                            <constraint firstItem="iPO-Ta-tuY" firstAttribute="centerX" secondItem="LNd-VB-gbd" secondAttribute="centerX" id="nV5-7P-F0p"/>
+                            <constraint firstItem="fXq-ZH-fVR" firstAttribute="top" secondItem="RT2-nq-dIy" secondAttribute="bottom" constant="20" id="yaX-Ru-FhR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textfield" destination="iPO-Ta-tuY" id="GlO-yy-4e1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yDd-Sp-X6m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1649" y="-313"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GI5-Nd-ee2">
